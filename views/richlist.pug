@@ -95,7 +95,7 @@ block content
     if settings.richlist_page.show_current_balance == true || settings.richlist_page.show_received_coins == true
       div(class=(settings.richlist_page.wealth_distribution.show_distribution_table == true || settings.richlist_page.wealth_distribution.show_distribution_chart == true ? 'col-xs-12 col-lg-8' : 'col-12'))
         .container
-          ul.nav.nav-tabs(role='tablist')
+          ul#richlist-tabs.nav.nav-tabs(role='tablist')
             if settings.richlist_page.show_current_balance == true
               li.nav-item(role='presentation')
                 a(class='nav-link' + (settings.richlist_page.show_current_balance == true ? ' active' : ''), href='#balance', aria-controls='balance', role='tab', data-bs-toggle='tab') #{settings.locale.rl_current_balance}

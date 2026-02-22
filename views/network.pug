@@ -304,7 +304,7 @@ block content
               else
                 .sub-page-header.text-muted=settings.locale.net_description.replace('{1}', settings.coin.name)
         .cardSpacer.clearfix
-      ul.nav.nav-tabs(role='tablist')
+      ul#network-tabs.nav.nav-tabs(role='tablist')
         li.nav-item(role='presentation')
           a.nav-link.active(href='#connections', aria-controls='connections', role='tab', data-bs-toggle='tab') #{settings.locale.net_connections}
         li.nav-item(role='presentation')

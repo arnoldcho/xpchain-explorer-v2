@@ -152,6 +152,57 @@ table.table-hover > tbody > tr:hover > * {
   color: #ffffff !important;
 }
 
+/* Network + Richlist tabs: use xpc blue tone instead of theme green */
+#network-tabs .nav-link,
+#richlist-tabs .nav-link {
+  color: #2e5ea7 !important;
+  border-color: #cfd9ea !important;
+  background-image: none !important;
+}
+
+#network-tabs .nav-link:hover,
+#richlist-tabs .nav-link:hover {
+  color: #1d4c93 !important;
+  background-color: #eef3fb !important;
+}
+
+#network-tabs .nav-link.active,
+#richlist-tabs .nav-link.active {
+  color: #ffffff !important;
+  background-color: #2e5ea7 !important;
+  border-color: #2e5ea7 !important;
+}
+
+/* Wealth distribution readability (including very light color chips) */
+#summary-panel table th,
+#summary-panel table td {
+  color: #1f2f49 !important;
+}
+
+#summary-panel .wealth-dist-color-box {
+  border: 1px solid #5c7296;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.32);
+}
+
+/* Claim page button tone */
+#claimForm button.btn.btn-success {
+  background-color: #2e5ea7 !important;
+  border-color: #2e5ea7 !important;
+  color: #ffffff !important;
+}
+
+#claimForm button.btn.btn-success:hover,
+#claimForm button.btn.btn-success:focus,
+#claimForm button.btn.btn-success:active {
+  background-color: #1d4c93 !important;
+  border-color: #1d4c93 !important;
+  color: #ffffff !important;
+}
+
+#showClaimInstructions.badge {
+  background-color: #224f95 !important;
+}
+
 /* DataTables paging tone-down */
 .dataTables_wrapper .dataTables_paginate .pagination .page-link {
   background-color: #f3f6fb !important;
@@ -191,10 +242,14 @@ table.table-hover > tbody > tr:hover > * {
   width: 100%;
 }
 
+#side-nav-bar .nav-item + .nav-item {
+  margin-top: 5px;
+}
+
 #side-nav-bar .nav-link {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   width: 100%;
   box-sizing: border-box;
   margin: 0;
@@ -254,8 +309,8 @@ table.table-hover > tbody > tr:hover > * {
 
 /* Keep side menu icons visually aligned */
 #side-nav-bar .nav-icon {
-  width: 20px;
-  min-width: 20px;
+  width: 22px;
+  min-width: 22px;
   text-align: center;
 }
 
@@ -268,5 +323,15 @@ table.table-hover > tbody > tr:hover > * {
 
   #page-title {
     font-size: 1.55rem;
+  }
+
+  /* Keep mobile offcanvas menu left-aligned for readability */
+  #side-offcanvas #side-nav-bar .nav-link {
+    justify-content: flex-start !important;
+    padding-left: 16px !important;
+  }
+
+  #side-offcanvas #side-nav-bar .nav-item + .nav-item {
+    margin-top: 8px;
   }
 }
