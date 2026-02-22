@@ -216,7 +216,7 @@
         "masternodes_panel": {
           // enabled: Enable/disable the masternode panel (true/false)
           //          If set to false, the masternode panel will be completely inaccessible
-          "enabled": true,
+          "enabled": false,
           // display_order: Determine which order this panel is shown from 1-5
           //                1 = far left panel, 5 = far right panel
           //                The panel will be disabled with a value of 0
@@ -429,10 +429,10 @@
           // enabled: Enable/disable this particular social link (true/false)
           //          If set to false, the link will be completely inaccessible
           "enabled": true,
-          // tooltip_text: Social link tooltips are always prefixed by the "coin.name" setting followed by the text from this tooltip_text setting. Ex: Exor Github
+          // tooltip_text: Social link tooltips are always prefixed by the "coin.name" setting followed by the text from this tooltip_text setting.
           "tooltip_text": "Github",
           // url: The exact url that the social link should navigate to
-          "url": "https://github.com/team-exor",
+          "url": "https://github.com/arnoldcho/xpchain-explorer-v2",
           // fontawesome_class: A string of css classes, separated by spaces that can be used to display a fontawesome icon for this social link. See https://fontawesome.com/ for more info
           "fontawesome_class": "fa-brands fa-github",
           // image_path: The path to an image file that will be displayed for this social link
@@ -443,38 +443,10 @@
           // enabled: Enable/disable this particular social link (true/false)
           //          If set to false, the link will be completely inaccessible
           "enabled": true,
-          // tooltip_text: Social link tooltips are always prefixed by the "coin.name" setting followed by the text from this tooltip_text setting. Ex: Exor Twitter
-          "tooltip_text": "Twitter",
+          // tooltip_text: Social link tooltips are always prefixed by the "coin.name" setting followed by the text from this tooltip_text setting.
+          "tooltip_text": "Telegram Notice",
           // url: The exact url that the social link should navigate to
-          "url": "https://twitter.com/ExorOfficial",
-          // fontawesome_class: A string of css classes, separated by spaces that can be used to display a fontawesome icon for this social link. See https://fontawesome.com/ for more info
-          "fontawesome_class": "fa-brands fa-twitter",
-          // image_path: The path to an image file that will be displayed for this social link
-          //             NOTE: The path root is /public
-          "image_path": ""
-        },
-        {
-          // enabled: Enable/disable this particular social link (true/false)
-          //          If set to false, the link will be completely inaccessible
-          "enabled": true,
-          // tooltip_text: Social link tooltips are always prefixed by the "coin.name" setting followed by the text from this tooltip_text setting. Ex: Exor Discord
-          "tooltip_text": "Discord",
-          // url: The exact url that the social link should navigate to
-          "url": "https://discord.gg/dSuGm3y",
-          // fontawesome_class: A string of css classes, separated by spaces that can be used to display a fontawesome icon for this social link. See https://fontawesome.com/ for more info
-          "fontawesome_class": "fa-brands fa-discord",
-          // image_path: The path to an image file that will be displayed for this social link
-          //             NOTE: The path root is /public
-          "image_path": ""
-        },
-        {
-          // enabled: Enable/disable this particular social link (true/false)
-          //          If set to false, the link will be completely inaccessible
-          "enabled": true,
-          // tooltip_text: Social link tooltips are always prefixed by the "coin.name" setting followed by the text from this tooltip_text setting. Ex: Exor Telegram
-          "tooltip_text": "Telegram",
-          // url: The exact url that the social link should navigate to
-          "url": "https://t.me/Exorofficial",
+          "url": "https://t.me/XPChain_Notice",
           // fontawesome_class: A string of css classes, separated by spaces that can be used to display a fontawesome icon for this social link. See https://fontawesome.com/ for more info
           "fontawesome_class": "fa-brands fa-telegram",
           // image_path: The path to an image file that will be displayed for this social link
@@ -485,29 +457,29 @@
           // enabled: Enable/disable this particular social link (true/false)
           //          If set to false, the link will be completely inaccessible
           "enabled": true,
-          // tooltip_text: Social link tooltips are always prefixed by the "coin.name" setting followed by the text from this tooltip_text setting. Ex: Exor Website
-          "tooltip_text": "Website",
+          // tooltip_text: Social link tooltips are always prefixed by the "coin.name" setting followed by the text from this tooltip_text setting.
+          "tooltip_text": "Telegram Community",
           // url: The exact url that the social link should navigate to
-          "url": "https://exor.io",
+          "url": "https://t.me/xpchain_offical",
           // fontawesome_class: A string of css classes, separated by spaces that can be used to display a fontawesome icon for this social link. See https://fontawesome.com/ for more info
-          "fontawesome_class": "",
+          "fontawesome_class": "fa-brands fa-telegram",
           // image_path: The path to an image file that will be displayed for this social link
           //             NOTE: The path root is /public
-          "image_path": "/img/external.png"
+          "image_path": ""
         },
         {
           // enabled: Enable/disable this particular social link (true/false)
           //          If set to false, the link will be completely inaccessible
           "enabled": true,
-          // tooltip_text: Social link tooltips are always prefixed by the "coin.name" setting followed by the text from this tooltip_text setting. Ex: Exor Coingecko
-          "tooltip_text": "Coingecko",
+          // tooltip_text: Social link tooltips are always prefixed by the "coin.name" setting followed by the text from this tooltip_text setting.
+          "tooltip_text": "Website",
           // url: The exact url that the social link should navigate to
-          "url": "https://www.coingecko.com/en/coins/exor",
+          "url": "https://www.xpchain.co.kr/",
           // fontawesome_class: A string of css classes, separated by spaces that can be used to display a fontawesome icon for this social link. See https://fontawesome.com/ for more info
           "fontawesome_class": "",
           // image_path: The path to an image file that will be displayed for this social link
           //             NOTE: The path root is /public
-          "image_path": "/img/coingecko.png"
+          "image_path": "/img/external.png"
         }
       ],
       // Customize the height of the social media links in the footer for the following screen sizes:
@@ -523,7 +495,7 @@
       "social_link_percent_height_mobile": 40,
       // powered_by_text: Customize the "powered by" text in the center of the footer with some custom html
       //                  NOTE: Add the keyword {explorer_version} to display the current version number of the explorer
-      "powered_by_text": "<a class='nav-link poweredby' href='https://github.com/team-exor/eiquidus' target='_blank'>eIquidus v{explorer_version}</a>"
+      "powered_by_text": "<a class='nav-link poweredby' href='https://github.com/arnoldcho/xpchain-explorer-v2' target='_blank'>XPChain Explorer v{explorer_version}</a>"
     }
   },
 
@@ -1396,7 +1368,7 @@
     { "symbol": "eth", "id": "ethereum" },
     { "symbol": "usdt", "id": "tether" },
     { "symbol": "ltc", "id": "litecoin" },
-    { "symbol": "exor", "id": "exor" }
+    { "symbol": "xpc", "id": "xpchain" }
   ],
 
   //api_cmds: A collection of settings that pertain to the list of customizable rpc api commands

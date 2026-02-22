@@ -37,6 +37,8 @@ perl -0777 -i -pe '
   s/"favicon192": "favicon-192\.png"/"favicon192": "img\/branding\/favicon-192.png"/g;
   s#"logo": "/img/logo\.png"#"logo": "/img/branding/xpchain-logo.png"#g;
   s#"home_link_logo": "/img/header-logo\.png"#"home_link_logo": "/img/branding/xpchain-header-logo.png"#g;
+  s/("masternodes_panel"\s*:\s*\{[\s\S]*?"enabled"\s*:\s*)true/$1false/s;
+  s#"powered_by_text"\s*:\s*"[^"]*"#"powered_by_text": "<a class=\x27nav-link poweredby\x27 href=\x27https://github.com/arnoldcho/xpchain-explorer-v2\x27 target=\x27_blank\x27>XPChain Explorer v{explorer_version}</a>"#g;
 
   s/("masternodes_page"\s*:\s*\{\s*\/\/ enabled: Enable\/disable the masternodes page \(true\/false\)\s*\/\/          If set to false, the masternodes page will be completely inaccessible\s*"enabled"\s*:\s*)true/$1false/s;
 ' "${SETTINGS_FILE}"
