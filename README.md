@@ -1,31 +1,17 @@
-# eIquidus
+# XPChain Explorer v2
 
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/team-exor/eiquidus?color=ffbd11&label=version)
-![GitHub Release Date](https://img.shields.io/github/release-date/team-exor/eiquidus)
-![GitHub last commit](https://img.shields.io/github/last-commit/team-exor/eiquidus)
-<img src="public/img/screenshots/platform-windows macos linux-lightgrey.svg" />
-![GitHub](https://img.shields.io/github/license/team-exor/eiquidus?color=ffbd11)
+XPChain 커뮤니티 운영용 블록체인 익스플로러 프로젝트입니다.  
+`vecocoin/eiquidus-explorer`를 기반으로 XPChain 네트워크(메인넷)에 맞춰 설정/운영 가이드를 정리했습니다.
 
-Written in node.js and mongodb, eIquidus is the most stable, secure, customizable and feature-rich open-source block explorer with support for virtually any altcoin that implements some form of the [Bitcoin RPC API protocol](https://developer.bitcoin.org/reference/rpc/index.html) (EVM blockchains such as ETH, BNB, etc. are not supported). Originally built for the [Exor blockchain](https://github.com/team-exor/exor), eIquidus has since grown into a fully-featured explorer with a focus on stability and security at its core. All features from the [original iquidus explorer](https://github.com/iquidus/explorer) are included here along with many new ideas from other iquidus forks, and an absolute ton of new custom changes and bug fixes that were developed specifically for eIquidus.
+- XPChain 전용 빠른 시작(한글): `README_XPCHAIN_KO.md`
+- 기반 프로젝트(Upstream): https://github.com/vecocoin/eiquidus-explorer
+
+기본 운영 전제:
+- Node.js 20 LTS
+- MongoDB 7.x
+- `xpchaind` + `txindex=1`
 
 ![Homepage](public/img/screenshots/homepage-1-102-0.png)
-
-### Crowdfunding Program
-
-Exor accepts targeted donations in an effort to crowdfund various feature and improvement requests for the block explorer and other Exor-related projects. [Browse the list of unfunded tasks](https://exor.io/tasklist/hide-completed/hide-funded/show-unfunded/) and send Exor coins to the correct funding address to help meet the funding goal for tasks that you would like to see developed. Once the funding goal is met, Exor developers will begin work on the task asap and will remain a top priority until completed. If you are a software developer and would like to work on funded tasks in exchange for payment in EXOR, please get in touch with us using one of the [Developer Contact](#developer-contact) links below.
-
-### Premium Support
-
-All code in this project is open source and available free-of-charge under the BSD-3-Clause license. If you require assistance setting up an explorer for your coin, or are interested in hiring a developer to incorporate custom changes for your explorer, you may contact the developer using the [Developer Contact](#developer-contact) links below.
-
-### Developer Contact
-
-Feel free to contact the developer using one of the options below:
-
-<div align="center">
-<a href="https://discord.gg/dSuGm3y"><img src="https://img.shields.io/badge/Discord-Joe%20%5BTeam%20Exor%5D-blue?style=for-the-badge&logo=Discord" /></a>&nbsp;
-<a href="https://t.me/joeuhren"><img src="https://img.shields.io/badge/Telegram-joeuhren-blue?style=for-the-badge&logo=Telegram" /></a>
-</div>
 
 Table of Contents
 ------------------
