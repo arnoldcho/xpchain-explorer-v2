@@ -73,5 +73,9 @@ npm start
 
 ---
 
+
+상세 운영 문서(서버 설정/PM2/Nginx/Cron/백업/트러블슈팅):
+- `docs/RUNBOOK_KO.md`
+
 원본 업스트림:
 - https://github.com/vecocoin/eiquidus-explorer
