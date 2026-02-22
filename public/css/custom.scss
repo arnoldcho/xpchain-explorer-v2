@@ -3,6 +3,8 @@
 :root {
   --xpc-accent: #1c4fa8;
   --xpc-accent-strong: #153f8b;
+  --xpc-nav-bg: #0f2f66;
+  --xpc-nav-bg-strong: #0b244d;
   --xpc-accent-soft: #eaf2ff;
   --xpc-muted-bg: #eef3fb;
   --xpc-muted-border: #cdd9ec;
@@ -13,12 +15,20 @@
 
 /* Brand tone alignment */
 .bg-primary {
-  background-color: var(--xpc-accent) !important;
+  background-color: var(--xpc-nav-bg) !important;
 }
 
 .navbar.bg-primary,
 header#main-header-side.bg-primary {
-  background-color: var(--xpc-accent) !important;
+  background-color: var(--xpc-nav-bg) !important;
+}
+
+#main-header.navbar.bg-primary {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+#side-nav-bar.bg-primary {
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .navbar.bg-primary a,
@@ -123,6 +133,25 @@ table.table-hover > tbody > tr:hover > * {
   --bs-table-accent-bg: rgba(13, 110, 253, 0.06);
 }
 
+/* Movement amount badges: map warning tiers into 3 blue tones */
+#movement-table .badge.bg-danger {
+  background-color: #145edb !important; /* high tier: vivid blue */
+  border: 1px solid #0f4fbf !important;
+  color: #ffffff !important;
+}
+
+#movement-table .badge.bg-warning {
+  background-color: #3f7fdf !important; /* medium tier: less vivid blue */
+  border: 1px solid #2f70d4 !important;
+  color: #ffffff !important;
+}
+
+#movement-table .badge.bg-success {
+  background-color: #86abdd !important; /* low tier: muted blue */
+  border: 1px solid #739ccc !important;
+  color: #0f2f66 !important;
+}
+
 /* DataTables paging tone-down */
 .dataTables_wrapper .dataTables_paginate .pagination .page-link {
   background-color: #f3f6fb !important;
@@ -165,12 +194,12 @@ table.table-hover > tbody > tr:hover > * {
 #side-nav-bar .nav-link {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   width: 100%;
   box-sizing: border-box;
   margin: 0;
-  padding: 8px 10px;
-  border-radius: 8px;
+  padding: 9px 12px;
+  border-radius: 10px;
   border: 0 !important;
   background-image: none !important;
   box-shadow: none !important;
@@ -181,10 +210,35 @@ table.table-hover > tbody > tr:hover > * {
   padding: 8px 0;
 }
 
+#side-nav-bar.show-menu .nav-link {
+  padding-left: 16px;
+}
+
 #side-nav-bar .nav-link.active,
 #side-nav-bar .nav-link:hover {
   color: #fff !important;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.16);
+}
+
+#side-nav-bar .nav-link:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.35);
+  outline-offset: 2px;
+}
+
+#main-header #side-header-toggle > span,
+#side-nav-bar .nav-icon {
+  color: #eaf2ff !important;
+}
+
+#main-header.navbar.bg-primary .input-group .btn {
+  background-color: var(--xpc-nav-bg-strong);
+  border-color: var(--xpc-nav-bg-strong);
+}
+
+#main-header.navbar.bg-primary .input-group .btn:hover,
+#main-header.navbar.bg-primary .input-group .btn:focus {
+  background-color: #081b3a;
+  border-color: #081b3a;
 }
 
 /* Footer links: cleaner spacing */
