@@ -825,7 +825,7 @@
       "show_distribution_chart": true,
       // colors: An array of html color codes to represent the top 100 groupings in the wealth distribution table and pie chart
       //         From left-to-right the 6 colors are represented as the following: "top 1-25", "top 26-50", "top 51-75", "top 76-100", "101+" and "burned coins" - which is used if the include_burned_coins_in_distribution setting is enabled
-      "colors": [ "#e73cbd", "#00bc8c", "#3498db", "#e3ce3e", "#adb5bd", "#e74c3c" ]
+      "colors": [ "#1d4c93", "#2e62ae", "#4579c3", "#5f90d2", "#95b4df", "#2b578f" ]
     },
     // burned_coins: a collection of settings that pertain to the wallet addresses that should not appear in the richlist/top100 page
     //               NOTE: These settings won't take effect until after running (and completing) a normal index sync or reindex-rich

@@ -184,6 +184,12 @@ table.table-hover > tbody > tr:hover > * {
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.32);
 }
 
+#summary-panel tbody tr:nth-child(1) .wealth-dist-color-box { background-color: #1d4c93 !important; }
+#summary-panel tbody tr:nth-child(2) .wealth-dist-color-box { background-color: #2e62ae !important; }
+#summary-panel tbody tr:nth-child(3) .wealth-dist-color-box { background-color: #4579c3 !important; }
+#summary-panel tbody tr:nth-child(4) .wealth-dist-color-box { background-color: #5f90d2 !important; }
+#summary-panel tbody tr:nth-child(6) .wealth-dist-color-box { background-color: #95b4df !important; }
+
 /* Claim page button tone */
 #claimForm button.btn.btn-success {
   background-color: #2e5ea7 !important;
