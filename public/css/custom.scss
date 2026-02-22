@@ -135,21 +135,21 @@ table.table-hover > tbody > tr:hover > * {
 
 /* Movement amount badges: map warning tiers into 3 blue tones */
 #movement-table .badge.bg-danger {
-  background-color: #145edb !important; /* high tier: vivid blue */
-  border: 1px solid #0f4fbf !important;
+  background-color: #0f3f9f !important; /* high tier: darkest blue */
+  border: 1px solid #0b3588 !important;
   color: #ffffff !important;
 }
 
 #movement-table .badge.bg-warning {
-  background-color: #3f7fdf !important; /* medium tier: less vivid blue */
-  border: 1px solid #2f70d4 !important;
+  background-color: #2f67c6 !important; /* medium tier: blue */
+  border: 1px solid #295bb1 !important;
   color: #ffffff !important;
 }
 
 #movement-table .badge.bg-success {
-  background-color: #86abdd !important; /* low tier: muted blue */
-  border: 1px solid #739ccc !important;
-  color: #0f2f66 !important;
+  background-color: #7fa6df !important; /* low tier: light blue */
+  border: 1px solid #6f98d3 !important;
+  color: #ffffff !important;
 }
 
 /* DataTables paging tone-down */
