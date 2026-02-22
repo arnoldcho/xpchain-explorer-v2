@@ -1,1 +1,141 @@
-/* Add custom css rules here */
+/* XPChain explorer micro UI polish */
+
+:root {
+  --xpc-accent: #1e66d0;
+  --xpc-accent-strong: #0f4fb5;
+  --xpc-accent-soft: #eaf2ff;
+  --xpc-soft-border: #dfe5ee;
+  --xpc-soft-shadow: 0 6px 18px rgba(16, 24, 40, 0.05);
+}
+
+/* Brand tone alignment */
+.bg-primary {
+  background-color: var(--xpc-accent) !important;
+}
+
+.navbar.bg-primary,
+header#main-header-side.bg-primary {
+  background-color: var(--xpc-accent) !important;
+}
+
+a {
+  color: var(--xpc-accent-strong);
+}
+
+a:hover,
+a:focus {
+  color: #0c418f;
+}
+
+/* Better visual separation for content cards/charts/tables */
+.card.card-default {
+  border: 1px solid var(--xpc-soft-border) !important;
+  border-radius: 12px;
+  box-shadow: var(--xpc-soft-shadow);
+}
+
+.card.card-default > .card-header {
+  border-bottom: 1px solid #e8edf4;
+  font-weight: 600;
+}
+
+/* Header/title readability */
+#page-header-container {
+  margin-top: 2px;
+  margin-bottom: 10px;
+}
+
+#page-title {
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+
+.sub-page-header {
+  color: #64748b;
+}
+
+/* Sync warning panel: easier to scan */
+.alert.alert-warning {
+  border: 1px solid #f4bb52;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(236, 179, 59, 0.12);
+}
+
+/* Search box and button touch-up */
+#search-row .form-control,
+#search-navbar-collapse .form-control {
+  border: 1px solid #d6dfeb;
+  border-radius: 10px 0 0 10px;
+}
+
+#search-row .btn,
+#search-navbar-collapse .btn {
+  background-color: var(--xpc-accent);
+  border-color: var(--xpc-accent);
+  color: #fff;
+  border-radius: 0 10px 10px 0;
+  font-weight: 600;
+}
+
+#search-row .btn:hover,
+#search-row .btn:focus,
+#search-navbar-collapse .btn:hover,
+#search-navbar-collapse .btn:focus {
+  background-color: var(--xpc-accent-strong);
+  border-color: var(--xpc-accent-strong);
+}
+
+/* Table readability */
+table.table thead th {
+  font-size: 0.9rem;
+  letter-spacing: 0.2px;
+}
+
+table.table tbody td {
+  vertical-align: middle;
+}
+
+table.table-striped > tbody > tr:nth-of-type(odd) > * {
+  --bs-table-accent-bg: rgba(13, 110, 253, 0.025);
+}
+
+table.table-hover > tbody > tr:hover > * {
+  --bs-table-accent-bg: rgba(13, 110, 253, 0.06);
+}
+
+/* Side menu active/hover tone */
+#side-nav-bar .nav-link.active,
+#side-nav-bar .nav-link:hover {
+  color: var(--xpc-accent-strong) !important;
+  background-color: var(--xpc-accent-soft);
+  border-radius: 8px;
+}
+
+/* Footer links: cleaner spacing */
+#footer-container .social-link {
+  margin-right: 0.45rem;
+  opacity: 0.95;
+}
+
+#footer-container .social-link:hover {
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+/* Keep side menu icons visually aligned */
+#side-nav-bar .nav-icon {
+  width: 18px;
+  text-align: center;
+}
+
+/* Mobile breathing room */
+@media (max-width: 991px) {
+  #main-child-container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  #page-title {
+    font-size: 1.55rem;
+  }
+}

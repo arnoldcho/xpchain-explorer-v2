@@ -4,7 +4,26 @@ html(lang='en')
     meta(charset='UTF-8')
     meta(name='viewport' content='width=device-width, initial-scale=1')
     meta(http-equiv='Content-Language', content='en')
-    title=(page_title_prefix == null || page_title_prefix == '' ? settings.locale.error_title.replace('{1}', settings.coin.name) : page_title_prefix) + ' - ' + settings.shared_pages.page_title
+    - var resolved_title_prefix = (page_title_prefix == null || page_title_prefix == '' ? settings.locale.error_title.replace('{1}', settings.coin.name) : page_title_prefix);
+    - var resolved_site_title = (settings.shared_pages.page_title == null ? '' : settings.shared_pages.page_title.toString());
+    - var resolved_description = (settings.locale.ex_description == null ? '' : settings.locale.ex_description.replace('{1}', settings.coin.name));
+    - var resolved_og_image = (settings.shared_pages.logo == null || settings.shared_pages.logo == '' ? '/img/branding/xpchain-logo.png' : settings.shared_pages.logo);
+    meta(name='description', content=resolved_description)
+    meta(name='robots', content='index,follow')
+    meta(property='og:type', content='website')
+    meta(property='og:site_name', content=settings.coin.name + ' Explorer')
+    if resolved_site_title.trim() == '' || resolved_title_prefix.toString().trim().toLowerCase() == resolved_site_title.trim().toLowerCase()
+      title=resolved_title_prefix
+    else
+      title=resolved_title_prefix + ' - ' + resolved_site_title
+    meta(property='og:title', content=(resolved_site_title.trim() == '' || resolved_title_prefix.toString().trim().toLowerCase() == resolved_site_title.trim().toLowerCase() ? resolved_title_prefix : resolved_title_prefix + ' - ' + resolved_site_title))
+    meta(property='og:description', content=resolved_description)
+    meta(property='og:image', content=resolved_og_image)
+    meta(property='og:image:alt', content=settings.coin.name + ' Explorer')
+    meta(name='twitter:card', content='summary_large_image')
+    meta(name='twitter:title', content=(resolved_site_title.trim() == '' || resolved_title_prefix.toString().trim().toLowerCase() == resolved_site_title.trim().toLowerCase() ? resolved_title_prefix : resolved_title_prefix + ' - ' + resolved_site_title))
+    meta(name='twitter:description', content=resolved_description)
+    meta(name='twitter:image', content=resolved_og_image)
     if settings.shared_pages.favicons.favicon32 != ''
       link(rel='icon', href='/' + settings.shared_pages.favicons.favicon32, sizes='32x32')
     if settings.shared_pages.favicons.favicon128 != ''
@@ -616,9 +635,11 @@ html(lang='en')
               showPOS = true;
           }
 
-          if (showPOS) {
+          const preferredDifficulty = '#{settings.shared_pages.difficulty}'.toUpperCase();
+
+          if (showPOS || preferredDifficulty == 'POS') {
             diffDataSets.push({
-              label: 'POS Difficulty',
+              label: 'PoS Difficulty',
               data: result.map(function(a) {return a.difficulty_pos;}),
               backgroundColor: ['#{settings.shared_pages.page_header.network_charts.difficulty_chart.pos_fill_color}'],
               borderColor: ['#{settings.shared_pages.page_header.network_charts.difficulty_chart.pos_line_color}'],
@@ -626,9 +647,9 @@ html(lang='en')
             });
           }
 
-          if (showPOW || !showPOS) {
+          if (preferredDifficulty != 'POS' && (showPOW || !showPOS)) {
             diffDataSets.push({
-              label: 'POW Difficulty',
+              label: 'PoW Difficulty',
               data: result.map(function(a) {return a.difficulty_pow;}),
               backgroundColor: ['#{settings.shared_pages.page_header.network_charts.difficulty_chart.pow_fill_color}'],
               borderColor: ['#{settings.shared_pages.page_header.network_charts.difficulty_chart.pow_line_color}'],
@@ -1397,7 +1418,10 @@ html(lang='en')
         ul.nav.justify-content-center
           li.text-center
             p
-              | !{settings.shared_pages.page_footer.powered_by_text.replace('{explorer_version}', settings.explorer_version + (settings.revision == null || settings.revision == '' ? '' : `-${settings.revision}`))}
+              - var footerPoweredBy = (settings.shared_pages.page_footer.powered_by_text == null ? '' : settings.shared_pages.page_footer.powered_by_text.toString());
+              if footerPoweredBy.trim() == '' || footerPoweredBy.toLowerCase().indexOf('eiquidus') > -1
+                - footerPoweredBy = "<a class='nav-link poweredby' href='https://github.com/arnoldcho/xpchain-explorer-v2' target='_blank'>XPChain Explorer v{explorer_version}</a>";
+              | !{footerPoweredBy.replace('{explorer_version}', settings.explorer_version + (settings.revision == null || settings.revision == '' ? '' : `-${settings.revision}`))}
       .col-4.navbar-nav
         ui.nav.justify-content-end
           label#lblBlockcount.badge.nav-link.border-0.float-end

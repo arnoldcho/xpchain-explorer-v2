@@ -29,7 +29,7 @@ perl -0777 -i -pe '
   s/"name": "Exor"/"name": "XPChain"/g;
   s/"symbol": "EXOR"/"symbol": "XPC"/g;
   s/"theme": "Exor"/"theme": "Flatly"/g;
-  s/"page_title": "eIquidus"/"page_title": "XPChain Explorer v2"/g;
+  s/"page_title": "eIquidus"/"page_title": "XPChain Block Explorer"/g;
   s/\{ "symbol": "exor", "id": "exor" \}/\{ "symbol": "xpc", "id": "xpchain" \}/g;
   s/"favicon32": "favicon-32\.png"/"favicon32": "img\/branding\/favicon-32.png"/g;
   s/"favicon128": "favicon-128\.png"/"favicon128": "img\/branding\/favicon-128.png"/g;

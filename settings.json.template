@@ -98,31 +98,31 @@
     // theme: Change the look & feel of the explorer with a unique theme. Uses bootswatch themes (https://bootswatch.com)
     //        Valid options: Cerulean, Cosmo, Cyborg, Darkly, Exor, Flatly, Journal, Litera, Lumen, Lux, Materia, Minty, Morph, Pulse, Quartz, Sandstone, Simplex, Sketchy, Slate, Solar, Spacelab, Superhero, United, Vapor, Yeti, Zephyr
     //        (see /public/css/themes for available themes)
-    "theme": "Exor",
+    "theme": "Flatly",
     // page_title: The text to display at the end of the HTML title tag and also displayed in the page header when the "shared_pages.page_header.home_link" setting is set to "title"
-    "page_title": "eIquidus",
+    "page_title": "XPChain Block Explorer",
     // favicons: a collection of image or icon files that are displayed in a browser window/tab and serve as branding for your website. Their main purpose is to help visitors locate your page easier when they have multiple tabs open
     //          Modern favicon sizes were inspired by this web article: https://www.emergeinteractive.com/insights/detail/The-Essentials-of-FavIcons/
     //          NOTE: If any of the favicons are left blank or not set to a valid file, they will be disabled and unused
     "favicons": {
       // favicon32: The path to a 32x32 image or icon file
       //            NOTE: The path root is /public
-      "favicon32": "favicon-32.png",
+      "favicon32": "img/branding/favicon-32.png",
       // favicon128: The path to a 128x128 image or icon file
       //            NOTE: The path root is /public
-      "favicon128": "favicon-128.png",
+      "favicon128": "img/branding/favicon-128.png",
       // favicon180: The path to a 180x180 image or icon file
       //            NOTE: The path root is /public
-      "favicon180": "favicon-180.png",
+      "favicon180": "img/branding/favicon-180.png",
       // favicon192: The path to a 192x192 image or icon file
       //            NOTE: The path root is /public
-      "favicon192": "favicon-192.png"
+      "favicon192": "img/branding/favicon-192.png"
     },
     // logo: The path to an image file that is displayed on the api page as well as in one of the top panels when enabled
     //       This logo can also be displayed in the header when the "shared_pages.page_header.home_link" setting is set to "logo" and the "shared_pages.page_header.home_link_logo" setting is blank or an invalid file
     //       NOTE: The path root is /public
     //             The optimum logo size is 128x128 as the image will be forced to 128px high when displayed
-    "logo": "/img/logo.png",
+    "logo": "/img/branding/xpchain-logo.png",
     // date_time: a collection of settings that pertain to the date and time values displayed in the explorer
     "date_time": {
       // display_format: The format to use when displaying date/time values
@@ -174,7 +174,7 @@
       // home_link_logo: The path to a logo image that is displayed on page header when the "shared_pages.page_header.home_link" setting is set to "logo"
       //                 If the home_link_logo is left blank or not set to a valid file, the "shared_pages.page_header.home_link" = "logo" setting will automatically default to displaying the original "shared_pages.logo" instead of the "shared_pages.page_header.home_link_logo"
       //                 NOTE: The path root is /public
-      "home_link_logo": "/img/header-logo.png",
+      "home_link_logo": "/img/branding/xpchain-header-logo.png",
       // home_link_logo_height: The max-height value of the "shared_pages.page_header.home_link" logo image (value in px, only valid if "shared_pages.page_header.home_link" = 'logo')
       "home_link_logo_height": 50,
       // panels: a collection of settings that pertain to the panels displayed on page header of all pages (NOTE: you can show/hide the entire group of panels on each page independently by changing the show_panels value in the settings for each page)
@@ -330,7 +330,7 @@
         // image_path: The path to an image file that is displayed in the header section of all pages next to the page title (NOTE: This image can be enabled/disabled on a per-page basis)
         //             NOTE: The path root is /public
         //             The optimum logo size is 48x48 as the image will be forced to this size when displayed
-        "image_path": "/img/page-title-img.png",
+        "image_path": "/img/branding/xpchain-header-logo.png",
         // enable_animation: Enable/disable the flip/spin animation on the page title image (true/false)
         "enable_animation": true
       },
