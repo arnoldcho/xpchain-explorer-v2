@@ -1,9 +1,12 @@
 /* XPChain explorer micro UI polish */
 
 :root {
-  --xpc-accent: #1e66d0;
-  --xpc-accent-strong: #0f4fb5;
+  --xpc-accent: #1c4fa8;
+  --xpc-accent-strong: #153f8b;
   --xpc-accent-soft: #eaf2ff;
+  --xpc-muted-bg: #eef3fb;
+  --xpc-muted-border: #cdd9ec;
+  --xpc-muted-text: #2d4469;
   --xpc-soft-border: #dfe5ee;
   --xpc-soft-shadow: 0 6px 18px rgba(16, 24, 40, 0.05);
 }
@@ -16,6 +19,15 @@
 .navbar.bg-primary,
 header#main-header-side.bg-primary {
   background-color: var(--xpc-accent) !important;
+}
+
+.navbar.bg-primary a,
+header#main-header-side.bg-primary a {
+  color: #fff;
+}
+
+.logo-main {
+  filter: drop-shadow(0 2px 4px rgba(3, 26, 64, 0.25));
 }
 
 a {
@@ -56,9 +68,17 @@ a:focus {
 
 /* Sync warning panel: easier to scan */
 .alert.alert-warning {
-  border: 1px solid #f4bb52;
+  background-color: var(--xpc-muted-bg) !important;
+  border: 1px solid var(--xpc-muted-border) !important;
+  color: var(--xpc-muted-text) !important;
+  background-image: none !important;
   border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(236, 179, 59, 0.12);
+  box-shadow: 0 2px 10px rgba(45, 68, 105, 0.08);
+}
+
+.alert.alert-warning strong,
+.alert.alert-warning .fa-triangle-exclamation {
+  color: var(--xpc-accent-strong) !important;
 }
 
 /* Search box and button touch-up */
@@ -103,12 +123,68 @@ table.table-hover > tbody > tr:hover > * {
   --bs-table-accent-bg: rgba(13, 110, 253, 0.06);
 }
 
+/* DataTables paging tone-down */
+.dataTables_wrapper .dataTables_paginate .pagination .page-link {
+  background-color: #f3f6fb !important;
+  border-color: #d3ddeb !important;
+  color: #35507b !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .pagination .page-item.active .page-link {
+  background-color: #2e5ea7 !important;
+  border-color: #2e5ea7 !important;
+  color: #fff !important;
+  background-image: none !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .pagination .page-item.disabled .page-link {
+  background-color: #eef2f8 !important;
+  border-color: #d8e0ec !important;
+  color: #90a0b8 !important;
+  background-image: none !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .pagination .page-link:hover {
+  background-color: #e6edf8 !important;
+  border-color: #c2cfe4 !important;
+  color: #1f3a63 !important;
+  background-image: none !important;
+}
+
 /* Side menu active/hover tone */
+#side-nav-bar {
+  overflow: hidden;
+}
+
+#side-nav-bar .nav-item {
+  width: 100%;
+}
+
+#side-nav-bar .nav-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 0 !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+#side-nav-bar:not(.show-menu) .nav-link {
+  justify-content: center;
+  padding: 8px 0;
+}
+
 #side-nav-bar .nav-link.active,
 #side-nav-bar .nav-link:hover {
-  color: var(--xpc-accent-strong) !important;
-  background-color: var(--xpc-accent-soft);
-  border-radius: 8px;
+  color: #fff !important;
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 /* Footer links: cleaner spacing */
@@ -124,7 +200,8 @@ table.table-hover > tbody > tr:hover > * {
 
 /* Keep side menu icons visually aligned */
 #side-nav-bar .nav-icon {
-  width: 18px;
+  width: 20px;
+  min-width: 20px;
   text-align: center;
 }
 
