@@ -688,31 +688,33 @@ app.use('/ext/getnetworkchartdata', function(req, res) {
 // returns explorer db sync status compared to node block height
 app.use('/ext/getdbstatus', function(req, res) {
   db.get_stats(settings.coin.name, function(stats) {
-    lib.get_blockcount(function(blockcount) {
-      const nodeBlockCount = (blockcount && !isNaN(blockcount) ? parseInt(blockcount) : 0);
-      // stats.last: explorer index progress (last indexed block)
-      // stats.count: chain height snapshot saved in stats table (reference only)
-      const dbIndexedBlockCount = (stats && stats.last && !isNaN(stats.last) ? parseInt(stats.last) : 0);
-      const dbChainSnapshotCount = (stats && stats.count && !isNaN(stats.count) ? parseInt(stats.count) : 0);
-      const lag = Math.max(0, nodeBlockCount - dbIndexedBlockCount);
+    db.get_max_tx_blockindex(function(maxIndexedBlock) {
+      lib.get_blockcount(function(blockcount) {
+        const nodeBlockCount = (blockcount && !isNaN(blockcount) ? parseInt(blockcount) : 0);
+        const dbIndexedBlockCount = (maxIndexedBlock && !isNaN(maxIndexedBlock) ? parseInt(maxIndexedBlock) : 0);
+        const dbChainSnapshotCount = (stats && stats.count && !isNaN(stats.count) ? parseInt(stats.count) : 0);
+        const dbLastTrackedBlock = (stats && stats.last && !isNaN(stats.last) ? parseInt(stats.last) : 0);
+        const lag = Math.max(0, nodeBlockCount - dbIndexedBlockCount);
 
-      let status = 'unknown';
-      if (nodeBlockCount > 0) {
-        if (lag === 0)
-          status = 'ready';
-        else if (lag <= 20)
-          status = 'indexing';
-        else
-          status = 'syncing';
-      }
+        let status = 'unknown';
+        if (nodeBlockCount > 0) {
+          if (lag === 0)
+            status = 'ready';
+          else if (lag <= 20)
+            status = 'indexing';
+          else
+            status = 'syncing';
+        }
 
-      res.json({
-        status: status,
-        db_blockcount: dbIndexedBlockCount,
-        db_chain_snapshot_blockcount: dbChainSnapshotCount,
-        node_blockcount: nodeBlockCount,
-        lag: lag,
-        last_updated_date: (stats && stats.blockchain_last_updated ? stats.blockchain_last_updated : null)
+        res.json({
+          status: status,
+          db_blockcount: dbIndexedBlockCount,
+          db_last_tracked_block: dbLastTrackedBlock,
+          db_chain_snapshot_blockcount: dbChainSnapshotCount,
+          node_blockcount: nodeBlockCount,
+          lag: lag,
+          last_updated_date: (stats && stats.blockchain_last_updated ? stats.blockchain_last_updated : null)
+        });
       });
     });
   });
