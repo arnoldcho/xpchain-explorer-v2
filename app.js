@@ -685,6 +685,35 @@ app.use('/ext/getnetworkchartdata', function(req, res) {
   });
 });
 
+// returns explorer db sync status compared to node block height
+app.use('/ext/getdbstatus', function(req, res) {
+  db.get_stats(settings.coin.name, function(stats) {
+    lib.get_blockcount(function(blockcount) {
+      const nodeBlockCount = (blockcount && !isNaN(blockcount) ? parseInt(blockcount) : 0);
+      const dbBlockCount = (stats && stats.count && !isNaN(stats.count) ? parseInt(stats.count) : 0);
+      const lag = Math.max(0, nodeBlockCount - dbBlockCount);
+
+      let status = 'unknown';
+      if (nodeBlockCount > 0) {
+        if (lag === 0)
+          status = 'ready';
+        else if (lag <= 20)
+          status = 'indexing';
+        else
+          status = 'syncing';
+      }
+
+      res.json({
+        status: status,
+        db_blockcount: dbBlockCount,
+        node_blockcount: nodeBlockCount,
+        lag: lag,
+        last_updated_date: (stats && stats.blockchain_last_updated ? stats.blockchain_last_updated : null)
+      });
+    });
+  });
+});
+
 app.use('/system/restartexplorer', function(req, res, next) {
   // check to ensure this special cmd is only executed by the local server
   if (req._remoteAddress != null && req._remoteAddress.indexOf('127.0.0.1') > -1) {
