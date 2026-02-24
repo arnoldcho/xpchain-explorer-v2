@@ -690,8 +690,11 @@ app.use('/ext/getdbstatus', function(req, res) {
   db.get_stats(settings.coin.name, function(stats) {
     lib.get_blockcount(function(blockcount) {
       const nodeBlockCount = (blockcount && !isNaN(blockcount) ? parseInt(blockcount) : 0);
-      const dbBlockCount = (stats && stats.count && !isNaN(stats.count) ? parseInt(stats.count) : 0);
-      const lag = Math.max(0, nodeBlockCount - dbBlockCount);
+      // stats.last: explorer index progress (last indexed block)
+      // stats.count: chain height snapshot saved in stats table (reference only)
+      const dbIndexedBlockCount = (stats && stats.last && !isNaN(stats.last) ? parseInt(stats.last) : 0);
+      const dbChainSnapshotCount = (stats && stats.count && !isNaN(stats.count) ? parseInt(stats.count) : 0);
+      const lag = Math.max(0, nodeBlockCount - dbIndexedBlockCount);
 
       let status = 'unknown';
       if (nodeBlockCount > 0) {
@@ -705,7 +708,8 @@ app.use('/ext/getdbstatus', function(req, res) {
 
       res.json({
         status: status,
-        db_blockcount: dbBlockCount,
+        db_blockcount: dbIndexedBlockCount,
+        db_chain_snapshot_blockcount: dbChainSnapshotCount,
         node_blockcount: nodeBlockCount,
         lag: lag,
         last_updated_date: (stats && stats.blockchain_last_updated ? stats.blockchain_last_updated : null)
