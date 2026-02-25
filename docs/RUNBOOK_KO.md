@@ -221,16 +221,11 @@ sudo systemctl reload nginx
 - 피어 동기화: 5분
 
 ```cron
-*/1 * * * * cd /home/arnold/xpchain-explorer-v2 && npm run sync-blocks >/dev/null 2>&1
-*/5 * * * * cd /home/arnold/xpchain-explorer-v2 && npm run sync-peers >/dev/null 2>&1
+*/1 * * * * cd /home/arnold/xpchain-explorer-v2 && flock -n /tmp/xpc-sync.lock node --stack-size=20000 scripts/sync.js index update >> /home/arnold/xpchain-explorer-v2/logs/cron-sync-blocks.log 2>&1
+*/5 * * * * cd /home/arnold/xpchain-explorer-v2 && flock -n /tmp/xpc-peers.lock node --stack-size=20000 scripts/sync.js peers >> /home/arnold/xpchain-explorer-v2/logs/cron-sync-peers.log 2>&1
 ```
 
-로그 남기는 버전(권장):
-
-```cron
-*/1 * * * * cd /home/arnold/xpchain-explorer-v2 && npm run sync-blocks >> /home/arnold/logs/sync-blocks.log 2>&1
-*/5 * * * * cd /home/arnold/xpchain-explorer-v2 && npm run sync-peers  >> /home/arnold/logs/sync-peers.log 2>&1
-```
+`flock -n`은 이전 작업이 아직 실행 중이면 새 실행을 건너뛰어 동기화 작업 중복 실행을 방지합니다.
 
 ## 10. 백업 정책 (예시)
 

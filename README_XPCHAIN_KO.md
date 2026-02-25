@@ -71,6 +71,27 @@ npm start
 - `sync-blocks`를 cron으로 1분 주기 실행
 - MongoDB 백업/모니터링(디스크, 메모리, WT 상태) 필수
 
+### Cron 설정/운영 기록 (예시)
+
+`crontab -e`에 아래 항목을 추가:
+
+```cron
+*/1 * * * * cd /home/arnold/xpchain-explorer-v2 && flock -n /tmp/xpc-sync.lock node --stack-size=20000 scripts/sync.js index update >> /home/arnold/xpchain-explorer-v2/logs/cron-sync-blocks.log 2>&1
+*/5 * * * * cd /home/arnold/xpchain-explorer-v2 && flock -n /tmp/xpc-peers.lock node --stack-size=20000 scripts/sync.js peers >> /home/arnold/xpchain-explorer-v2/logs/cron-sync-peers.log 2>&1
+```
+
+`flock -n`은 이전 작업이 아직 끝나지 않았을 때 새 작업을 건너뛰어, 동기화 작업의 중복 실행을 방지합니다.
+
+적용 확인:
+
+```bash
+crontab -l
+tail -f /home/arnold/xpchain-explorer-v2/logs/cron-sync-blocks.log
+tail -f /home/arnold/xpchain-explorer-v2/logs/cron-sync-peers.log
+```
+
+참고: 서버 사용자/경로가 다르면 `/home/arnold/...` 부분은 운영 환경에 맞게 변경하세요.
+
 ---
 
 
