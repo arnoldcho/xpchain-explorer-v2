@@ -88,7 +88,7 @@
     //          If set to false, historical data such as network hashrate and difficulty values will not be saved or available for network charts
     "enabled": true,
     // max_saved_records: The maximum # of blocks to save historical data for
-    "max_saved_records": 120
+    "max_saved_records": 1440
   },
 
   /* Shared page settings */
