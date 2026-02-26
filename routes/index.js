@@ -663,14 +663,26 @@ router.post('/search', function(req, res) {
         });
       }
     } else {
-      db.get_address(query, false, function(address) {
+      // only numeric input can be a block height
+      var is_block_height_query = /^\d+$/.test(query);
+
+      // fast path: exact case-sensitive match uses index directly
+      db.get_address(query, true, function(address) {
         if (address)
           res.redirect('/address/' + address.a_id);
         else {
-          lib.get_blockhash(query, function(hash) {
-            if (hash && hash != 'There was an error. Check your console.')
-              res.redirect('/block/' + hash);
-            else
+          // fallback: retain previous case-insensitive behavior for compatibility
+          db.get_address(query, false, function(address_ci) {
+            if (address_ci)
+              res.redirect('/address/' + address_ci.a_id);
+            else if (is_block_height_query) {
+              lib.get_blockhash(query, function(hash) {
+                if (hash && hash != 'There was an error. Check your console.')
+                  res.redirect('/block/' + hash);
+                else
+                  route_get_txlist(res, locale.ex_search_error + query);
+              });
+            } else
               route_get_txlist(res, locale.ex_search_error + query);
           });
         }
