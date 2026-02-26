@@ -11,6 +11,12 @@
 - 체인 노드: `xpchaind` (`txindex=1` 권장)
 - 도메인: `explorer.xpchain.co.kr`
 
+### 1.1 현재 운영 확정값
+
+- PM2 systemd 서비스: `pm2-arnold`
+- Cron 로그 경로: `/home/arnold/xpchain-explorer-v2/logs/cron-sync-blocks.log`, `/home/arnold/xpchain-explorer-v2/logs/cron-sync-peers.log`
+- 공급량 계산 모드: `settings.json > sync.supply = "TXOUTSET"`
+
 ## 2. 서버 기본 준비
 
 ### 2.1 패키지/도구
@@ -138,6 +144,11 @@ pm2 save
 pm2 status
 ```
 
+현재 운영 프로세스(예시):
+
+- App: `xpchain-explorer-v2` (`online`)
+- Module: `pm2-logrotate` (`online`)
+
 ### 7.1 부팅 자동시작(systemd)
 
 환경에 따라 기본 `pm2 startup` 결과가 `inactive (dead)`가 될 수 있어 아래 형태 권장.
@@ -227,6 +238,22 @@ sudo systemctl reload nginx
 
 `flock -n`은 이전 작업이 아직 실행 중이면 새 실행을 건너뛰어 동기화 작업 중복 실행을 방지합니다.
 
+현재 운영 crontab에 포함된 백업/정리 작업(예시):
+
+```cron
+# Daily 03:00 - MongoDB backup (gzip archive)
+0 3 * * * mkdir -p /home/arnold/backups/mongo && mongodump --db xpchain_explorer_v2 --gzip --archive=/home/arnold/backups/mongo/xpchain_explorer_v2-$(date +\%F).archive.gz >> /home/arnold/backups/backup.log 2>&1
+
+# Daily 03:20 - Lightweight wallet backup (wallet.dat + xpchain.conf)
+20 3 * * * mkdir -p /home/arnold/backups/xpchain-lite && tar -czf /home/arnold/backups/xpchain-lite/xpchain-lite-$(date +\%F).tar.gz /home/arnold/.xpchain/wallet.dat /home/arnold/.xpchain/xpchain.conf >> /home/arnold/backups/backup.log 2>&1
+
+# Weekly Sunday 04:00 - Full ~/.xpchain backup
+0 4 * * 0 mkdir -p /home/arnold/backups/xpchain-full && tar -czf /home/arnold/backups/xpchain-full/xpchain-full-$(date +\%F).tar.gz /home/arnold/.xpchain >> /home/arnold/backups/backup.log 2>&1
+
+# Delete MongoDB backups older than 14 days
+40 4 * * * find /home/arnold/backups/mongo -type f -name '*.archive.gz' -mtime +14 -delete >> /home/arnold/backups/backup.log 2>&1
+```
+
 ## 10. 백업 정책 (예시)
 
 수동 백업:
@@ -302,6 +329,48 @@ curl -I http://127.0.0.1:3001
 
 - 현재는 경고이며 실행에는 큰 영향 없음
 - 추후 Sass 3.0 이전에 theme scss 함수(`lighten/darken`) 정리 필요
+
+### 12.5 `getmoneysupply`가 0으로 표시됨
+
+원인:
+- 코어 버전에서 `getinfo`가 제거되었는데 `sync.supply`가 `GETINFO`로 설정된 경우.
+
+조치:
+
+```bash
+# settings.json
+"sync": {
+  "supply": "TXOUTSET"
+}
+
+# 적용(공급량 재계산/저장)
+cd ~/xpchain-explorer-v2
+node --stack-size=20000 scripts/sync.js index update
+```
+
+검증:
+
+```bash
+curl http://127.0.0.1:3001/ext/getmoneysupply
+~/XPChain/xpchain-cli gettxoutsetinfo | jq .total_amount
+```
+
+### 12.6 Network Hashrate 차트 첫 점만 비정상적으로 낮음
+
+원인:
+- `networkhistories`의 가장 오래된 레코드 1건에 단위가 섞인 낮은 `nethash` 값이 저장된 경우.
+
+조치(해당 레코드 삭제):
+
+```javascript
+mongosh
+use xpchain_explorer_v2
+db.networkhistories.find({}, {blockindex:1, nethash:1, _id:0}).sort({blockindex:1}).limit(10)
+db.networkhistories.deleteOne({ blockindex: <문제_블록높이>, nethash: <문제_값> })
+```
+
+참고:
+- `network_history.max_saved_records`(기본 120)로 오래된 레코드는 순차적으로 제거됩니다.
 
 ## 13. XPChain 커스터마이징 반영 파일
 
