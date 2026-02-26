@@ -278,6 +278,42 @@ html(lang='en')
         if ($().tooltip)
           $('#search-header-span').tooltip('hide');
       });
+      $(document).on('submit', 'form[action="/search"]', function(e) {
+        const form = $(this);
+        const input = form.find('input[name="search"]').first();
+        const query = (input.val() || '').trim();
+
+        if (query.length === 0)
+          return true;
+
+        if (form.data('searchSubmitting') === true) {
+          e.preventDefault();
+          return false;
+        }
+
+        e.preventDefault();
+        form.data('searchSubmitting', true);
+
+        const submitButton = form.find('button[type="submit"]').first();
+        if (submitButton.length > 0) {
+          const originalHtml = submitButton.data('originalHtml');
+          if (originalHtml == null)
+            submitButton.data('originalHtml', submitButton.html());
+
+          submitButton.css('min-width', submitButton.outerWidth() + 'px');
+          submitButton.prop('disabled', true).attr('aria-busy', 'true');
+          submitButton.html('<span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>Searching...');
+        }
+
+        if (input.length > 0)
+          input.prop('readonly', true);
+
+        const nativeForm = form.get(0);
+        if (window.requestAnimationFrame)
+          window.requestAnimationFrame(function() { nativeForm.submit(); });
+        else
+          setTimeout(function() { nativeForm.submit(); }, 0);
+      });
       $(window).resize(function () {
         fixDataTableColumns();
         fixFooterHeightAndPosition();
