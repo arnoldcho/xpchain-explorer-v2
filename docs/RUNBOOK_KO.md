@@ -303,7 +303,19 @@ sudo grep '/api/getrawtransaction' /var/log/nginx/access.log | awk '{print $1}' 
 현 상태:
 - `/api/getrawtransaction?txid=`는 400으로 방어 처리됨.
 
-### 12.2 `connect() failed (111: Connection refused) while connecting to upstream`
+### 12.2 `GET /api/getrawtransaction ... code -5`
+
+원인:
+- 유효한 64자리 hex 형식이지만 체인/멤풀에 존재하지 않는 `txid` 조회(스캐너/봇 트래픽에서 흔함).
+
+현 상태:
+- `code -5`는 서버 내부 오류가 아니라 "미존재 tx"로 간주.
+- API는 404(JSON)로 응답하도록 처리해 에러 로그 노이즈를 줄임.
+
+운영 팁:
+- Nginx access log에서 상위 IP 확인 후 rate limit 또는 차단 적용.
+
+### 12.3 `connect() failed (111: Connection refused) while connecting to upstream`
 
 원인: 앱(3001)이 죽었거나 재시작 중.
 
@@ -316,7 +328,7 @@ pm2 restart 0
 curl -I http://127.0.0.1:3001
 ```
 
-### 12.3 `RPC timeout of 5000ms exceeded`
+### 12.4 `RPC timeout of 5000ms exceeded`
 
 원인: 노드 부하/지연, RPC 응답 지연.
 
@@ -325,12 +337,12 @@ curl -I http://127.0.0.1:3001
 - 동기화 작업 시간대 분리
 - Nginx timeout 및 rate limit 조정
 
-### 12.4 Sass deprecation warning
+### 12.5 Sass deprecation warning
 
 - 현재는 경고이며 실행에는 큰 영향 없음
 - 추후 Sass 3.0 이전에 theme scss 함수(`lighten/darken`) 정리 필요
 
-### 12.5 `getmoneysupply`가 0으로 표시됨
+### 12.6 `getmoneysupply`가 0으로 표시됨
 
 원인:
 - 코어 버전에서 `getinfo`가 제거되었는데 `sync.supply`가 `GETINFO`로 설정된 경우.
