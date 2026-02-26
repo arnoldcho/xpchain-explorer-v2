@@ -71,6 +71,14 @@ npm start
 - `sync-blocks`를 cron으로 1분 주기 실행
 - MongoDB 백업/모니터링(디스크, 메모리, WT 상태) 필수
 
+### 공급량 계산 모드 참고
+
+- `TXOUTSET`: 노드 `gettxoutsetinfo.total_amount`(현재 UTXO 총합) 기준으로 계산
+- `BALANCES`: Explorer DB `addresses` 컬렉션의 양수 잔액 합으로 계산
+- 권장: XPChain 환경에서는 `GETINFO` 대신 `TXOUTSET` 사용
+
+참고: `BALANCES`가 `TXOUTSET`보다 크게 보일 수 있으며, 이는 주소 인덱싱/파싱 차이로 발생할 수 있습니다.
+
 ### Cron 설정/운영 기록 (예시)
 
 `crontab -e`에 아래 항목을 추가:
