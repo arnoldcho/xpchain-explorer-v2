@@ -299,18 +299,30 @@ function route_get_txlist(res, error) {
 function route_get_address(res, hash) {
   // check if trying to load a special address
   if (hash != null && hash.toLowerCase() != 'coinbase' && ((hash.toLowerCase() == 'hidden_address' && settings.address_page.enable_hidden_address_view == true) || (hash.toLowerCase() == 'unknown_address' && settings.address_page.enable_unknown_address_view == true) || (hash.toLowerCase() != 'hidden_address' && hash.toLowerCase() != 'unknown_address'))) {
-    // lookup address in local collection
-    db.get_address(hash, false, function(address) {
+    // fast path first: exact case-sensitive lookup uses indexed equality
+    db.get_address(hash, true, function(address) {
       if (address) {
         if (settings.claim_address_page.enabled == true) {
           // lookup claim_name for this address if exists
-          db.get_claim_name(hash, function(claim_name) {
+          db.get_claim_name(address.a_id, function(claim_name) {
             send_address_data(res, address, claim_name);
           });
         } else
           send_address_data(res, address, null);
-      } else
-        route_get_txlist(res, hash + ' not found');
+      } else {
+        // fallback for historical mixed-case data compatibility
+        db.get_address(hash, false, function(address_ci) {
+          if (address_ci) {
+            if (settings.claim_address_page.enabled == true) {
+              db.get_claim_name(address_ci.a_id, function(claim_name) {
+                send_address_data(res, address_ci, claim_name);
+              });
+            } else
+              send_address_data(res, address_ci, null);
+          } else
+            route_get_txlist(res, hash + ' not found');
+        });
+      }
     });
   } else
     route_get_txlist(res, hash + ' not found');
