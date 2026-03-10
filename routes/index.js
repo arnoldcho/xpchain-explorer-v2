@@ -5,6 +5,23 @@ var express = require('express'),
     db = require('../lib/database'),
     lib = require('../lib/explorer');
 
+function get_base_url(req) {
+  const forwardedProto = req.headers['x-forwarded-proto'];
+  const protocol = (forwardedProto ? forwardedProto.toString().split(',')[0].trim() : (req.protocol || (settings.webserver.tls.enabled == true ? 'https' : 'http')));
+
+  return protocol + '://' + req.get('host');
+}
+
+function add_sitemap_url(urls, baseUrl, pathName, changefreq, priority) {
+  urls.push(
+    '  <url>' +
+      '<loc>' + baseUrl + pathName + '</loc>' +
+      '<changefreq>' + changefreq + '</changefreq>' +
+      '<priority>' + priority + '</priority>' +
+    '</url>'
+  );
+}
+
 function send_block_data(res, block, txs, title_text, orphan) {
   res.render(
     'block',
@@ -370,6 +387,52 @@ router.get('/info', function(req, res) {
     // api page is not enabled so default to the tx list page
     route_get_txlist(res, null);
   }
+});
+
+router.get('/sitemap.xml', function(req, res) {
+  const baseUrl = get_base_url(req);
+  const urls = [];
+
+  add_sitemap_url(urls, baseUrl, '/', 'hourly', '1.0');
+
+  if (settings.api_page.enabled == true)
+    add_sitemap_url(urls, baseUrl, '/info', 'weekly', '0.5');
+
+  if (settings.richlist_page.enabled == true)
+    add_sitemap_url(urls, baseUrl, '/richlist', 'daily', '0.8');
+
+  if (settings.movement_page.enabled == true)
+    add_sitemap_url(urls, baseUrl, '/movement', 'hourly', '0.7');
+
+  if (settings.network_page.enabled == true)
+    add_sitemap_url(urls, baseUrl, '/network', 'hourly', '0.7');
+
+  if (settings.masternodes_page.enabled == true)
+    add_sitemap_url(urls, baseUrl, '/masternodes', 'hourly', '0.7');
+
+  if (settings.orphans_page.enabled == true)
+    add_sitemap_url(urls, baseUrl, '/orphans', 'daily', '0.4');
+
+  if (settings.blockchain_specific.heavycoin.enabled == true && settings.blockchain_specific.heavycoin.reward_page.enabled == true)
+    add_sitemap_url(urls, baseUrl, '/reward', 'daily', '0.5');
+
+  if (settings.markets_page.enabled == true) {
+    Object.keys(settings.markets_page.exchanges).forEach(function(marketId) {
+      const exchange = settings.markets_page.exchanges[marketId];
+
+      if (exchange.enabled == true && Array.isArray(exchange.trading_pairs)) {
+        exchange.trading_pairs.forEach(function(pair) {
+          if (pair.indexOf('/') > -1) {
+            const symbols = pair.split('/');
+            add_sitemap_url(urls, baseUrl, '/markets/' + marketId + '/' + symbols[0] + '/' + symbols[1], 'hourly', '0.6');
+          }
+        });
+      }
+    });
+  }
+
+  res.type('application/xml');
+  res.send('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls.join('\n') + '\n</urlset>\n');
 });
 
 router.get('/markets/:market/:coin_symbol/:pair_symbol', function(req, res) {

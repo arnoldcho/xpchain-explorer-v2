@@ -15,6 +15,15 @@ var app = express();
 var apiAccessList = [];
 const { exec } = require('child_process');
 
+function getRequestProtocol(req) {
+  const forwardedProto = req.headers['x-forwarded-proto'];
+
+  if (forwardedProto)
+    return forwardedProto.toString().split(',')[0].trim();
+
+  return req.protocol || (settings.webserver.tls.enabled == true ? 'https' : 'http');
+}
+
 // pass wallet rpc connection info to nodeapi
 nodeapi.setWalletDetails(settings.wallet);
 // dynamically build the nodeapi cmd access list by adding all non-blockchain-specific api cmds that have a value
@@ -89,6 +98,18 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+app.use(function(req, res, next) {
+  res.locals.baseUrl = getRequestProtocol(req) + '://' + req.get('host');
+  res.locals.requestPath = req.path;
+  next();
+});
+
+app.get('/robots.txt', function(req, res) {
+  res.type('text/plain');
+  res.send('User-agent: *\nAllow: /\nSitemap: ' + res.locals.baseUrl + '/sitemap.xml\n');
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 // routes

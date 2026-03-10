@@ -8,8 +8,12 @@ html(lang='en')
     - var resolved_site_title = (settings.shared_pages.page_title == null ? '' : settings.shared_pages.page_title.toString());
     - var resolved_description = (settings.locale.ex_description == null ? '' : settings.locale.ex_description.replace('{1}', settings.coin.name));
     - var resolved_og_image = (settings.shared_pages.logo == null || settings.shared_pages.logo == '' ? '/img/branding/xpchain-logo.png' : settings.shared_pages.logo);
+    - var resolved_robots = (typeof meta_robots !== 'undefined' && meta_robots != null && meta_robots != '' ? meta_robots : ((active == 'tx' || active == 'block' || active == 'address' || active == 'claim-address') ? 'noindex,follow' : 'index,follow'));
+    - var resolved_canonical_url = (typeof canonical_url !== 'undefined' && canonical_url != null && canonical_url != '' ? canonical_url : ((typeof baseUrl !== 'undefined' && baseUrl != null && typeof requestPath !== 'undefined' && requestPath != null) ? baseUrl + requestPath : null));
     meta(name='description', content=resolved_description)
-    meta(name='robots', content='index,follow')
+    meta(name='robots', content=resolved_robots)
+    if resolved_canonical_url != null && resolved_canonical_url != ''
+      link(rel='canonical', href=resolved_canonical_url)
     meta(property='og:type', content='website')
     meta(property='og:site_name', content=settings.coin.name + ' Explorer')
     if resolved_site_title.trim() == '' || resolved_title_prefix.toString().trim().toLowerCase() == resolved_site_title.trim().toLowerCase()
