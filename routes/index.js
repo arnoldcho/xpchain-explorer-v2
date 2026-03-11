@@ -679,6 +679,10 @@ router.get('/claim/:hash', function(req, res) {
   route_get_claim_form(res, req.params.hash);
 });
 
+router.get('/address/:hash/claim', function(req, res) {
+  res.redirect(301, '/claim/' + req.params.hash);
+});
+
 router.get('/address/:hash', function(req, res) {
   route_get_address(res, req.params.hash);
 });
