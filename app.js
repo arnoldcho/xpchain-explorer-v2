@@ -107,7 +107,7 @@ app.use(function(req, res, next) {
 
 app.get('/robots.txt', function(req, res) {
   res.type('text/plain');
-  res.send('User-agent: *\nAllow: /\nSitemap: ' + res.locals.baseUrl + '/sitemap.xml\n');
+  res.send('User-agent: *\nAllow: /\nDisallow: /api/\nSitemap: ' + res.locals.baseUrl + '/sitemap.xml\n');
 });
 
 app.use(express.static(path.join(__dirname, 'public')));

@@ -40,37 +40,37 @@ block content
               p
                 div.fw-bold getblockcount
                 div.text-muted 체인 최신 블록 높이
-                a(href='/api/getblockcount') #{address}/api/getblockcount
+                a(href='/api/getblockcount', rel='nofollow') #{address}/api/getblockcount
           if settings.api_page.public_apis.rpc.getconnectioncount.enabled == true && settings.api_cmds['getconnectioncount'] != null && settings.api_cmds['getconnectioncount'] != ''
             li
               p
                 div.fw-bold getconnectioncount
                 div.text-muted 현재 노드 연결 수
-                a(href='/api/getconnectioncount') #{address}/api/getconnectioncount
+                a(href='/api/getconnectioncount', rel='nofollow') #{address}/api/getconnectioncount
           if settings.api_page.public_apis.rpc.getdifficulty.enabled == true && settings.api_cmds['getdifficulty'] != null && settings.api_cmds['getdifficulty'] != ''
             li
               p
                 div.fw-bold getdifficulty
                 div.text-muted 현재 난이도
-                a(href='/api/getdifficulty') #{address}/api/getdifficulty
+                a(href='/api/getdifficulty', rel='nofollow') #{address}/api/getdifficulty
           if settings.api_page.public_apis.rpc.getblockhash.enabled == true && settings.api_cmds['getblockhash'] != null && settings.api_cmds['getblockhash'] != ''
             li
               p
                 div.fw-bold getblockhash?index=[height]
                 div.text-muted 블록 높이로 블록 해시 조회
-                a(href='/api/getblockhash?index=' + settings.api_page.sample_data.blockindex) #{address}/api/getblockhash?index=#{settings.api_page.sample_data.blockindex}
+                a(href='/api/getblockhash?index=' + settings.api_page.sample_data.blockindex, rel='nofollow') #{address}/api/getblockhash?index=#{settings.api_page.sample_data.blockindex}
           if settings.api_page.public_apis.rpc.getblock.enabled == true && settings.api_cmds['getblock'] != null && settings.api_cmds['getblock'] != ''
             li
               p
                 div.fw-bold getblock?hash=[blockhash]
                 div.text-muted 블록 해시로 블록 데이터 조회
-                a(href='/api/getblock?hash=' + settings.api_page.sample_data.blockhash) #{address}/api/getblock?hash=#{settings.api_page.sample_data.blockhash}
+                a(href='/api/getblock?hash=' + settings.api_page.sample_data.blockhash, rel='nofollow') #{address}/api/getblock?hash=#{settings.api_page.sample_data.blockhash}
           if settings.api_page.public_apis.rpc.getrawtransaction.enabled == true && settings.api_cmds['getrawtransaction'] != null && settings.api_cmds['getrawtransaction'] != ''
             li
               p
                 div.fw-bold getrawtransaction?txid=[txid]&decrypt=1
                 div.text-muted 트랜잭션 raw/decode 조회
-                a(href='/api/getrawtransaction?txid=' + settings.api_page.sample_data.txhash + '&decrypt=1') #{address}/api/getrawtransaction?txid=#{settings.api_page.sample_data.txhash}&decrypt=1
+                a(href='/api/getrawtransaction?txid=' + settings.api_page.sample_data.txhash + '&decrypt=1', rel='nofollow') #{address}/api/getrawtransaction?txid=#{settings.api_page.sample_data.txhash}&decrypt=1
 
         hr
 

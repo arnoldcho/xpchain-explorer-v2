@@ -44,7 +44,7 @@ block content
       .card-header
         strong=settings.locale.tx_hash + ': ' + tx.txid
         if settings.api_page.public_apis.rpc.getrawtransaction.enabled == true
-          a.d-none.d-md-inline(href=`/api/getrawtransaction?txid=${tx.txid}&decrypt=1`, style='color: var(--bs-body-color);')
+          a.d-none.d-md-inline(href=`/api/getrawtransaction?txid=${tx.txid}&decrypt=1`, rel='nofollow', style='color: var(--bs-body-color);')
             span.fa-solid.fa-circle-info.float-end(data-bs-toggle='tooltip', data-bs-placement='top', title=settings.locale.view_raw_tx_data)
       table#tx-table.table.table-bordered.table-striped.summary-table.mobile-border-right
         thead
